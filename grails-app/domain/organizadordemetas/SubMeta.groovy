@@ -12,6 +12,7 @@ class SubMeta {
   		subMetasOpocionales = new ArrayList<SubMeta>()
   		subMetasObligatorias = new ArrayList<SubMeta>()
   		listeners = new ArrayList<Objetivo>()
+      estado = Estado.PENDIENTE
 
   		this.nombre = nombre
   		this.descripcion = descripcion

@@ -30,13 +30,12 @@ class MetaController {
         }
 
         meta.inicializar(params.nombre, params.descripcion)
-        
+
         if (meta.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond meta.errors, view:'create'
             return
         }
-
 
         meta.save flush:true
 

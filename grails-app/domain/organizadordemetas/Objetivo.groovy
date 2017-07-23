@@ -2,16 +2,29 @@ package organizadordemetas
 
 class Objetivo extends SubMeta {
 
-	public Onjetivo () {
+
+	public void inicializar(String nombre, String descripcion){
 		subMetasOpocionales = new ArrayList<SubMeta>()
 		subMetasObligatorias = new ArrayList<SubMeta>()
 		listeners = new ArrayList<Objetivo>()
+		estado = Estado.PENDIENTE
+
+		this.nombre = nombre
+		this.descripcion = descripcion
+	}
+
+	public Objetivo () {
+		subMetasOpocionales = new ArrayList<SubMeta>()
+		subMetasObligatorias = new ArrayList<SubMeta>()
+		listeners = new ArrayList<Objetivo>()
+		estado = Estado.PENDIENTE
 	}
 
 	public Objetivo (String nombre, String descripcion) {
 		subMetasOpocionales = new ArrayList<SubMeta>()
 		subMetasObligatorias = new ArrayList<SubMeta>()
 		listeners = new ArrayList<Objetivo>()
+		estado = Estado.PENDIENTE
 
 		this.nombre = nombre
 		this.descripcion = descripcion

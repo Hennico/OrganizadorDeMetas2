@@ -29,6 +29,8 @@ class ObjetivoController {
             return
         }
 
+        objetivo.inicializar(params.nombre, params.descripcion)
+
         if (objetivo.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond objetivo.errors, view:'create'
