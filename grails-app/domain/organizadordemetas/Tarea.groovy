@@ -37,7 +37,7 @@ class Tarea extends SubMeta{
 
 
 
-  public void CambiarEstado(Estado estado) {
+  public void cambiarEstado(Estado estado) {
 		if (this.validarCambiarEstado(estado))
 			this.estado = estado
 	}

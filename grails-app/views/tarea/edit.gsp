@@ -42,10 +42,10 @@
 								<td>Descripcion:</td>
 								<td><g:textField name="smDescripcion" value="" /></td>
 							</tr>
-							
+
 							<tr>
 								<td>Submeta:</td>
-								
+
 								<td>
 									<select name="TipoSubMeta" id="TipoSubMeta">
 										<option value=   "Tarea">Tarea</option>
@@ -55,7 +55,7 @@
 							</tr>
 							<tr>
 								<td>Obligacion:</td>
-								
+
 								<td>
 									<select name="TipoObligacion" id="TipoObligacion">
 										<option value=   "Opcional">Opcional</option>
@@ -63,13 +63,41 @@
 									</select>
 								</td>
 							</tr>
-							
+
 							<tr>
 								<td> &nbsp; </td>
 								<td><g:actionSubmit action="agregarSubMeta" value="Crear"/></td>
 							</tr>
 						</table>
 					</div>
+
+
+
+          <div style="border-style:solid;border-color:black;border-width:1px;background-color:#E0FFFF;width:350px;text-align:center">
+						<h1>Cambiar de estado</h1>
+						<table width="300" >
+
+							<tr>
+                <td>Obligacion:</td>
+                <td>
+                  <select name="NuevoEstado" id="NuevoEstado">
+                    <option value=  "PENDIENTE">PENDIENTE</option>
+                    <option value="EN_EJECUCION">EN_EJECUCIO</option>
+                    <option value=  "CANCELADA">CANCELADA</option>
+                    <option value= "FINALIZADA">FINALIZADA</option>
+                  </select>
+                </td>
+							</tr>
+
+							<tr>
+								<td> &nbsp; </td>
+								<td><g:actionSubmit action="cambiarEstado" value="Cambiar"/></td>
+							</tr>
+						</table>
+					</div>
+
+
+
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />

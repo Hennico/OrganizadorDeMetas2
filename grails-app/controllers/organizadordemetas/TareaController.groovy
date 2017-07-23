@@ -94,32 +94,24 @@ class TareaController {
         }
     }
 
-	@Transactional
-	def agregarSubMeta(Tarea tarea) {
+  @Transactional
+  def cambiarEstado (Tarea tarea) {
         if (tarea == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
-		
-		SubMeta subMetaNueva;
-		switch(params.TipoSubMeta) {
-			case "Objetivo": subMetaNueva = new Objetivo(params.smNombre, params.smDescripcion); break;
-			case    "Tarea": subMetaNueva = new    Tarea(params.smNombre, params.smDescripcion); break;
-			default:
-				tarea.errors.add "Tipo no valido"
-				respond tarea.errors, view:'edit'
-				return
-		}
-		
-		switch(params.TipoObligacion) {
-			case "Obligatorio": tarea.agregarSubMetaObligatoria(subMetaNueva); break;
-			case    "Opcional":    tarea.agregarSubMetaOpcional(subMetaNueva); break;
+
+		switch(params.NuevoEstado) {
+      case "PENDIENTE": tarea.cambiarEstado(Estado.PENDIENTE); break;
+      case "EN_EJECUCION": tarea.cambiarEstado(Estado.EN_EJECUCION); break;
+      case "CANCELADA": tarea.cambiarEstado(Estado.CANCELADA); break;
+      case "FINALIZADA": tarea.cambiarEstado(Estado.FINALIZADA); break;
 			default:
 				respond tarea, view:'edit'
 				return
 		}
-		
+
 		tarea.save flush:true
 
         request.withFormat {
@@ -130,7 +122,44 @@ class TareaController {
             '*'{ respond tarea, [status: OK] }
         }
 	}
-	
+
+	@Transactional
+	def agregarSubMeta(Tarea tarea) {
+        if (tarea == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+		SubMeta subMetaNueva;
+		switch(params.TipoSubMeta) {
+			case "Objetivo": subMetaNueva = new Objetivo(params.smNombre, params.smDescripcion); break;
+			case    "Tarea": subMetaNueva = new    Tarea(params.smNombre, params.smDescripcion); break;
+			default:
+				tarea.errors.add "Tipo no valido"
+				respond tarea.errors, view:'edit'
+				return
+		}
+
+		switch(params.TipoObligacion) {
+			case "Obligatorio": tarea.agregarSubMetaObligatoria(subMetaNueva); break;
+			case    "Opcional":    tarea.agregarSubMetaOpcional(subMetaNueva); break;
+			default:
+				respond tarea, view:'edit'
+				return
+		}
+
+		tarea.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'tarea.label', default: 'Tarea'), tarea.id])
+                redirect tarea
+            }
+            '*'{ respond tarea, [status: OK] }
+        }
+	}
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {
