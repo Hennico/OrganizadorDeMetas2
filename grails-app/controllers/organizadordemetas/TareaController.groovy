@@ -113,8 +113,8 @@ class TareaController {
 		}
 		
 		switch(params.TipoObligacion) {
-			case "Obligatorio": tarea.agergarSubMetaObligatoria(subMetaNueva); break;
-			case    "Opcional": tarea.agergarSubMetaOpcional   (subMetaNueva); break;
+			case "Obligatorio": tarea.agregarSubMetaObligatoria(subMetaNueva); break;
+			case    "Opcional":    tarea.agregarSubMetaOpcional(subMetaNueva); break;
 			default:
 				respond tarea, view:'edit'
 				return

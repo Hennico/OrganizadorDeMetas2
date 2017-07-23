@@ -19,10 +19,10 @@ class SubMeta {
   	}
 
   	public void agregarSubMeta(SubMeta subMeta, boolean obligatorio) {
-  		if (estado == Estado.Cancelado || estado == Estado.Terminado) {
+  		if (estado == Estado.CANCELADA || estado == Estado.FINALIZADA) {
   			throw new Exception("No se puede agregar tarea portque esta finalizada/cancelada")
   		}
-  		if (estado != Estado.Pendiente && obligatorio) {
+  		if (estado != Estado.PENDIENTE && obligatorio) {
   			throw new Exception("No se puede agregar tarea obligatoria cuando ya se comenzo")
   		}
 
