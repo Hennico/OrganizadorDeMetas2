@@ -53,26 +53,26 @@ class SubMeta {
 
   	protected boolean validarCambiarEstado(Estado nuevoEstado) {
   		switch(nuevoEstado) {
-  			case Estado.Cancelado:
-  				return estado != Estado.Termiando;
+  			case Estado.CANCELADA:
+  				return estado != Estado.FINALIZADA;
 
-  			case Estado.Termiando:
-  				if (estado != Estado.EnEjecucion) return false;
+  			case Estado.FINALIZADA:
+  				if (estado != Estado.EN_EJECUCION) return false;
   				for(SubMeta opcional : subMetasOpocionales) {
-  					if (opcional.estado != Estado.Finalizado || opcional.estado != Estado.Cancelado)
+  					if (opcional.estado != Estado.FINALIZADA || opcional.estado != Estado.CANCELADA)
   						return false
   				}
   				return true
 
-  			case Estado.EnEjecucion:
-  				if (estado != Estado.Pendiente) return false;
+  			case Estado.EN_EJECUCION:
+  				if (estado != Estado.PENDIENTE) return false;
   				for(SubMeta opcional : subMetasObligatorias) {
-  					if (opcional.estado != Estado.Finalizado || opcional.estado != Estado.Cancelado)
+  					if (opcional.estado != Estado.FINALIZADA || opcional.estado != Estado.CANCELADA)
   						return false
   				}
   				return true
 
-  			case Estado.Pendiente:
+  			case Estado.PENDIENTE:
   				return false
   		}
   		throw new Exception("El estado que se utilizo no es valido")

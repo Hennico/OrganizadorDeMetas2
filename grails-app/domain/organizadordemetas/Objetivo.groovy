@@ -2,6 +2,11 @@ package organizadordemetas
 
 class Objetivo extends SubMeta {
 
+	public void actualizar(String nombre, String descripcion){
+		this.nombre = nombre
+		this.descripcion = descripcion
+	}
+
 
 	public void inicializar(String nombre, String descripcion){
 		subMetasOpocionales = new ArrayList<SubMeta>()
@@ -30,6 +35,10 @@ class Objetivo extends SubMeta {
 		this.descripcion = descripcion
 	}
 
+	public void cancelar() {
+		if (this.validarCambiarEstado(Estado.CANCELADA))
+			this.estado = Estado.CANCELADA
+	}
 
 	public void agregarSubMeta(SubMeta subMeta, boolean obligatorio) {
 		super.agregarSubMeta(subMeta, obligatorio)
@@ -60,6 +69,12 @@ class Objetivo extends SubMeta {
   }
 
   static constraints = {
+		nombre display: true
+		descripcion display: true
+		estado editable: false
+		subMetasOpocionales display: true
+		subMetasObligatorias display: true
+		listeners display: false
   }
 
 }

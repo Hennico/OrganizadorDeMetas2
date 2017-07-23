@@ -66,7 +66,9 @@ class ObjetivoController {
             return
         }
 
-        objetivo.save flush:true
+        Objetivo aux = Objetivo.get(objetivo.id)
+        aux.actualizar(objetivo.nombre, objetivo.descripcion)
+        aux.save flush:true
 
         request.withFormat {
             form multipartForm {
@@ -96,6 +98,16 @@ class ObjetivoController {
             '*'{ render status: NO_CONTENT }
         }
     }
+
+
+    def estadoCancelar(int id) {
+  		Objetivo objetivo = Objetivo.get(id)
+      objetivo.cancelar()
+  		render(view: "show", model: [objetivo: objetivo])
+  	}
+
+
+
 
     protected void notFound() {
         request.withFormat {
