@@ -77,7 +77,6 @@ class TareaController {
 
     @Transactional
     def delete(Tarea tarea) {
-
         if (tarea == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -95,6 +94,43 @@ class TareaController {
         }
     }
 
+	@Transactional
+	def agregarSubMeta(Tarea tarea) {
+        if (tarea == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+		
+		SubMeta subMetaNueva;
+		switch(params.TipoSubMeta) {
+			case "Objetivo": subMetaNueva = new Objetivo(params.smNombre, params.smDescripcion); break;
+			case    "Tarea": subMetaNueva = new    Tarea(params.smNombre, params.smDescripcion); break;
+			default:
+				tarea.errors.add "Tipo no valido"
+				respond tarea.errors, view:'edit'
+				return
+		}
+		
+		switch(params.TipoObligacion) {
+			case "Obligatorio": tarea.agergarSubMetaObligatoria(subMetaNueva); break;
+			case    "Opcional": tarea.agergarSubMetaOpcional   (subMetaNueva); break;
+			default:
+				respond tarea, view:'edit'
+				return
+		}
+		
+		tarea.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'tarea.label', default: 'Tarea'), tarea.id])
+                redirect tarea
+            }
+            '*'{ respond tarea, [status: OK] }
+        }
+	}
+	
     protected void notFound() {
         request.withFormat {
             form multipartForm {

@@ -33,11 +33,11 @@ class SubMeta {
   		}
   	}
 
-  	public void agregarSubMetaObligatoria(SubMeta subMetao) {
+  	public void agregarSubMetaObligatoria(SubMeta subMeta) {
   		this.agregarSubMeta(subMeta, true)
   	}
 
-  	public void agregarSubMetaOpcional(SubMeta subMetao) {
+  	public void agregarSubMetaOpcional(SubMeta subMeta) {
   		this.agregarSubMeta(subMeta, false)
   	}
 
