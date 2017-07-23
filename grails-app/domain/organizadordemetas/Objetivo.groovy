@@ -21,11 +21,7 @@ class Objetivo extends SubMeta {
 	}
 
 	public Objetivo (String nombre, String descripcion) {
-		subMetasOpocionales = new ArrayList<SubMeta>()
-		subMetasObligatorias = new ArrayList<SubMeta>()
-		listeners = new ArrayList<Objetivo>()
-		estado = Estado.PENDIENTE
-
+		this()
 		this.nombre = nombre
 		this.descripcion = descripcion
 	}
