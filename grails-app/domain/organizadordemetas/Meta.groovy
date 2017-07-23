@@ -11,6 +11,7 @@ class Meta {
 		objetivo.inicializar(nombre, descripcion)
   }
 
+
   static constraints = {
   }
 }

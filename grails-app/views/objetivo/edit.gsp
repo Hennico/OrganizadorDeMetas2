@@ -29,7 +29,11 @@
             <g:form resource="${this.objetivo}" method="PUT">
                 <g:hiddenField name="version" value="${this.objetivo?.version}" />
                 <fieldset class="form">
-                    <f:all bean="objetivo"/>
+                    <f:field bean="objetivo" property="nombre"/>
+                    <f:field bean="objetivo" property="descripcion"/>
+                    <f:field bean="objetivo" property="estado" disabled="true"/>
+                    <f:field bean="objetivo" property="subMetasOpocionales" disabled="true"/>
+                    <f:field bean="objetivo" property="subMetasObligatorias" disabled="true"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
