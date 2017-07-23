@@ -1,10 +1,10 @@
 package organizadordemetas
 
 class Meta {
-	SubMeta Objetivo
+	Objetivo objetivo
 
 	public void inicializar(String nombre, String descripcion){
-		Objetivo = New Objetivo(nombre, descripcion)
+		objetivo = new Objetivo("nombre", "descripcion")
   }
 
   static constraints = {

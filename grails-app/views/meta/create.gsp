@@ -27,8 +27,8 @@
             </g:hasErrors>
             <g:form resource="${this.meta}" method="POST">
                 <fieldset class="form">
-                    <g:textField name="nombre" value="Ingrese nombre" />
-                    <g:textField name="descripcion" value="Ingrese descripcion" />
+                    <g:field type="text" name="nombre" value="Ingrese nombre"/>
+                    <g:field type="text" name="descripcion" value="Ingrese descripcion"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
