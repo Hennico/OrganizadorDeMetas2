@@ -99,15 +99,50 @@ class ObjetivoController {
         }
     }
 
-
+	
     def estadoCancelar(int id) {
   		Objetivo objetivo = Objetivo.get(id)
-      objetivo.cancelar()
+		objetivo.cancelar()
   		render(view: "show", model: [objetivo: objetivo])
   	}
 
+	@Transactional
+	def agregarSubMeta(Objetivo objetivo) {
+        if (objetivo == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+		
+		SubMeta subMetaNueva;
+		switch(params.TipoSubMeta) {
+			case "Objetivo": subMetaNueva = new Objetivo(params.smNombre, params.smDescripcion); break;
+			case    "Tarea": subMetaNueva = new    Tarea(params.smNombre, params.smDescripcion); break;
+			default:
+				objetivo.errors.add "Tipo no valido"
+				respond objetivo.errors, view:'edit'
+				return
+		}
+		
+		switch(params.TipoObligacion) {
+			case "Obligatorio": objetivo.agregarSubMetaObligatoria(subMetaNueva); break;
+			case    "Opcional":    objetivo.agregarSubMetaOpcional(subMetaNueva); break;
+			default:
+				respond objetivo, view:'edit'
+				return
+		}
+		
+		objetivo.save flush:true
 
-
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'objetivo.label', default: 'Objetivo'), objetivo.id])
+                redirect objetivo
+            }
+            '*'{ respond objetivo, [status: OK] }
+        }
+	}
+	
 
     protected void notFound() {
         request.withFormat {

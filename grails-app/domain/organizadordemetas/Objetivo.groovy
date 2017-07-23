@@ -55,22 +55,13 @@ class Objetivo extends SubMeta {
 		if(flag)
 			estado = Estado.Finalizada
 	}
-
-  public void agregarSubMetaObligatoria(SubMeta subMetao) {
-    this.agregarSubMeta(subMeta, true)
-  }
-
-  public void agregarSubMetaOpcional(SubMeta subMetao) {
-    this.agregarSubMeta(subMeta, false)
-  }
-
-  static constraints = {
+	
+	static constraints = {
 		nombre display: true
 		descripcion display: true
 		estado editable: false
 		subMetasOpocionales display: true
 		subMetasObligatorias display: true
 		listeners display: false
-  }
-
+	}
 }
