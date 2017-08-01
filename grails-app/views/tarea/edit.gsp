@@ -29,7 +29,8 @@
             <g:form resource="${this.tarea}" method="PUT">
                 <g:hiddenField name="version" value="${this.tarea?.version}" />
                 <fieldset class="form">
-                    <f:all bean="tarea"/>
+                    <f:field bean="tarea" property="nombre"/>
+                    <f:field bean="tarea" property="descripcion"/>
 					<br/>
 					<div style="border-style:solid;border-color:black;border-width:1px;background-color:#E0FFFF;width:350px;text-align:center">
 						<h1>Agregar sub meta</h1>

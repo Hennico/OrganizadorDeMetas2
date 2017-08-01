@@ -31,50 +31,41 @@
                 <fieldset class="form">
                     <f:field bean="objetivo" property="nombre"/>
                     <f:field bean="objetivo" property="descripcion"/>
-                    <f:field bean="objetivo" property="estado" disabled="true"/>
-                    <f:field bean="objetivo" property="subMetasOpocionales" disabled="true"/>
-                    <f:field bean="objetivo" property="subMetasObligatorias" disabled="true"/>
-					
-					
-				<div style="border-style:solid;border-color:black;border-width:1px;background-color:#E0FFFF;width:350px;text-align:center">
-					<h1>Agregar sub meta</h1>
-					<table width="300" >
-						<tr>
-							<td>Nombre:</td>
-							<td><g:textField name="smNombre" value="" /></td>
-						</tr>
-						<tr>
-							<td>Descripcion:</td>
-							<td><g:textField name="smDescripcion" value="" /></td>
-						</tr>
-						
-						<tr>
-							<td>Submeta:</td>
-							
-							<td>
-								<select name="TipoSubMeta" id="TipoSubMeta">
-									<option value=   "Tarea">Tarea</option>
-									<option value="Objetivo">Objetivo</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>Obligacion:</td>
-							
-							<td>
-								<select name="TipoObligacion" id="TipoObligacion">
-									<option value=   "Opcional">Opcional</option>
-									<option value="Obligatorio">Obligatorio</option>
-								</select>
-							</td>
-						</tr>
-						
-						<tr>
-							<td> &nbsp; </td>
-							<td><g:actionSubmit action="agregarSubMeta" value="Crear"/></td>
-						</tr>
-					</table>
-				</div>
+					<div style="border-style:solid;border-color:black;border-width:1px;background-color:#E0FFFF;width:350px;text-align:center">
+						<h1>Agregar sub meta</h1>
+						<table width="300" >
+							<tr>
+								<td>Nombre:</td>
+								<td><g:textField name="smNombre" value="" /></td>
+							</tr>
+							<tr>
+								<td>Descripcion:</td>
+								<td><g:textField name="smDescripcion" value="" /></td>
+							</tr>
+							<tr>
+								<td>Submeta:</td>
+								<td>
+									<select name="TipoSubMeta" id="TipoSubMeta">
+										<option value=   "Tarea">Tarea</option>
+										<option value="Objetivo">Objetivo</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>Obligacion:</td>
+								<td>
+									<select name="TipoObligacion" id="TipoObligacion">
+										<option value=   "Opcional">Opcional</option>
+										<option value="Obligatorio">Obligatorio</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td> &nbsp; </td>
+								<td><g:actionSubmit action="agregarSubMeta" value="Crear"/></td>
+							</tr>
+						</table>
+					</div>
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
