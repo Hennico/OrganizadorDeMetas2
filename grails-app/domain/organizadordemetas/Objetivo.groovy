@@ -42,18 +42,19 @@ class Objetivo extends SubMeta {
 	}
 
 	public void Notify(){
-		bool flag
-		flag = true
+		estado = Estado.CANCELADA
+		def operacionFinalizada
+		operacionFinalizada = true
 		for(SubMeta opcional : subMetasOpocionales) {
-			if (opcional.estado != Estado.Finalizado || opcional.estado != Estado.Cancelado)
-			flag = false;
+			if (opcional.estado != Estado.FINALIZADA || opcional.estado != Estado.CANCELADA)
+			operacionFinalizada = false
 		}
 		for(SubMeta opcional : subMetasObligatorias) {
-			if (opcional.estado != Estado.Finalizado || opcional.estado != Estado.Cancelado)
-			flag = false;
+			if (opcional.estado != Estado.FINALIZADA || opcional.estado != Estado.CANCELADA)
+			operacionFinalizada = false
 		}
-		if(flag)
-			estado = Estado.Finalizada
+		if(operacionFinalizada)
+			estado = Estado..FINALIZADA
 	}
 	
 	static constraints = {

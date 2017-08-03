@@ -38,8 +38,10 @@ class Tarea extends SubMeta{
 
 
   public void cambiarEstado(Estado estado) {
-		if (this.validarCambiarEstado(estado))
+		if (this.validarCambiarEstado(estado)){
 			this.estado = estado
+			this.informChange()
+		}
 	}
 
   static constraints = {

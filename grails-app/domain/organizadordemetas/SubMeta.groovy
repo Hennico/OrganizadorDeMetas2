@@ -43,7 +43,7 @@ class SubMeta {
 
   	protected void informChange() {
   		for(Objetivo listener : listeners) {
-  			listener.notify()
+  			listener.Notify()
   		}
   	}
 
