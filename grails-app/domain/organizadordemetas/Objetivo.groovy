@@ -54,8 +54,6 @@ class Objetivo extends Paso {
 		nombre display: true
 		descripcion display: true
 		estado editable: false
-		pasosOpocionales display: true
-		pasosObligatorias display: true
 		listeners display: false
 	}
 }
