@@ -1,6 +1,6 @@
 package organizadordemetas
 
-class Objetivo extends SubMeta {
+class Objetivo extends Paso {
 
 	public void actualizar(String nombre, String descripcion){
 		this.nombre = nombre
@@ -8,27 +8,29 @@ class Objetivo extends SubMeta {
 	}
 
 
-	public void inicializar(String nombre, String descripcion){
-		subMetasOpocionales = new ArrayList<SubMeta>()
-		subMetasObligatorias = new ArrayList<SubMeta>()
-		listeners = new ArrayList<Objetivo>()
-		estado = Estado.PENDIENTE
-
-		this.nombre = nombre
-		this.descripcion = descripcion
+	public void inicializar(String nombre, String descripcion, Obligatoriedad obligatoriedad){
+	  	plan = []
+  		listeners = []
+     		estado = Estado.PENDIENTE
+  		this.nombre = nombre
+  		this.descripcion = descripcion
+		this.obligatoriedad = obligatoriedad
 	}
 
 	public Objetivo () {
-		subMetasOpocionales = new ArrayList<SubMeta>()
-		subMetasObligatorias = new ArrayList<SubMeta>()
-		listeners = new ArrayList<Objetivo>()
-		estado = Estado.PENDIENTE
+	  	plan = []
+  		listeners = []
+     		estado = Estado.PENDIENTE
+		this.obligatoriedad = Obligatoriedad.NECESARIO
 	}
 
-	public Objetivo (String nombre, String descripcion) {
+	public Objetivo (String nombre, String descripcion, Obligatoriedad obligatoriedad) {
 		this()
 		this.nombre = nombre
 		this.descripcion = descripcion
+  		this.nombre = nombre
+  		this.descripcion = descripcion
+		this.obligatoriedad = obligatoriedad
 	}
 
 	public void cancelar() {
@@ -36,32 +38,24 @@ class Objetivo extends SubMeta {
 			this.estado = Estado.CANCELADA
 	}
 
-	public void agregarSubMeta(SubMeta subMeta, boolean obligatorio) {
-		super.agregarSubMeta(subMeta, obligatorio)
-		subMeta.agragarListener(this)
+	public void agregarPaso(Paso paso, boolean obligatorio) {
+		super.agregarPaso(paso, obligatorio)
+		paso.agragarListener(this)
 	}
 
-	public void Notify(){
-		def operacionFinalizada
-		operacionFinalizada = true
-		for(SubMeta opcional : subMetasOpocionales) {
-			if (opcional.estado != Estado.FINALIZADA && opcional.estado != Estado.CANCELADA)
-			operacionFinalizada = false
-		}
-		for(SubMeta opcional : subMetasObligatorias) {
-			if (opcional.estado != Estado.FINALIZADA && opcional.estado != Estado.CANCELADA)
-			operacionFinalizada = false
-		}
-		if(operacionFinalizada == true)
-			estado = Estado.FINALIZADA
+	public void notificar(){
+		if (!plan.any { !it.esEstadoTerminal() && it.obligatoriedad == Obligatoriedad.NECESARIO})
+			estado  = Estado.EN_EJECUCION
+		if (!plan.any { !it.esEstadoTerminal() && it.obligatoriedad == Obligatoriedad.OPCIONAL})
+			estado  = Estado.FINALIZADA
 	}
 	
 	static constraints = {
 		nombre display: true
 		descripcion display: true
 		estado editable: false
-		subMetasOpocionales display: true
-		subMetasObligatorias display: true
+		pasosOpocionales display: true
+		pasosObligatorias display: true
 		listeners display: false
 	}
 }
