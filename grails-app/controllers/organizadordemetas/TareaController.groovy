@@ -102,15 +102,8 @@ class TareaController {
             return
         }
 
-		switch(params.NuevoEstado) {
-      case "PENDIENTE": tarea.cambiarEstado(Estado.PENDIENTE); break;
-      case "EN_EJECUCION": tarea.cambiarEstado(Estado.EN_EJECUCION); break;
-      case "CANCELADA": tarea.cambiarEstado(Estado.CANCELADA); break;
-      case "FINALIZADA": tarea.cambiarEstado(Estado.FINALIZADA); break;
-			default:
-				respond tarea, view:'edit'
-				return
-		}
+      tarea.cambiarEstado(Estado.convertirEnEnum(params.NuevoEstado))
+
 
 		tarea.save flush:true
 
@@ -131,23 +124,17 @@ class TareaController {
             return
         }
 
-		SubMeta subMetaNueva;
+		Paso subMetaNueva;
 		switch(params.TipoSubMeta) {
-			case "Objetivo": subMetaNueva = new Objetivo(params.smNombre, params.smDescripcion); break;
-			case    "Tarea": subMetaNueva = new    Tarea(params.smNombre, params.smDescripcion); break;
+			case "Objetivo": subMetaNueva = new Objetivo(params.smNombre, params.smDescripcion, Obligatoriedad.convertirEnEnum(params.TipoObligacion)); break;
+			case    "Tarea": subMetaNueva = new    Tarea(params.smNombre, params.smDescripcion, Obligatoriedad.convertirEnEnum(params.TipoObligacion)); break;
 			default:
 				tarea.errors.add "Tipo no valido"
 				respond tarea.errors, view:'edit'
 				return
 		}
+    tarea.agregarPaso(subMetaNueva)
 
-		switch(params.TipoObligacion) {
-			case "Obligatorio": tarea.agregarSubMetaObligatoria(subMetaNueva); break;
-			case    "Opcional":    tarea.agregarSubMetaOpcional(subMetaNueva); break;
-			default:
-				respond tarea, view:'edit'
-				return
-		}
 
 		tarea.save flush:true
 

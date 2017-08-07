@@ -15,7 +15,7 @@ class Tarea extends Paso{
   		this.nombre = nombre
   		this.descripcion = descripcion
 		this.obligatoriedad = obligatoriedad
-  	}	
+  	}
 
  	public Tarea () {
 	  	plan = []
@@ -32,13 +32,14 @@ class Tarea extends Paso{
   		this.descripcion = descripcion
 		this.obligatoriedad = obligatoriedad
   	}
-	
+
 
   	public void cambiarEstado(Estado estado) {
 		if (this.validarCambiarEstado(estado)){
 			this.estado = estado
-			this.informChange()
+			this.informarCambio()
 		}
+
 	}
 
 	static constraints = {

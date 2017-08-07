@@ -58,10 +58,7 @@
 								<td>Obligacion:</td>
 
 								<td>
-									<select name="TipoObligacion" id="TipoObligacion">
-										<option value=   "Opcional">Opcional</option>
-										<option value="Obligatorio">Obligatorio</option>
-									</select>
+                  <g:select name="TipoObligacion" from="${organizadordemetas.Obligatoriedad?.values()}"/>
 								</td>
 							</tr>
 
@@ -81,12 +78,7 @@
 							<tr>
                 <td>Obligacion:</td>
                 <td>
-                  <select name="NuevoEstado" id="NuevoEstado">
-                    <option value=  "PENDIENTE">PENDIENTE</option>
-                    <option value="EN_EJECUCION">EN_EJECUCIO</option>
-                    <option value=  "CANCELADA">CANCELADA</option>
-                    <option value= "FINALIZADA">FINALIZADA</option>
-                  </select>
+                  <g:select name="NuevoEstado" from="${organizadordemetas.Estado?.values()}" />
                 </td>
 							</tr>
 

@@ -22,12 +22,12 @@ class Paso {
   	}
 
   	public void agregarPaso (Paso paso) {
-  		if (this.esEstadoTerminal()) 
+  		if (this.esEstadoTerminal())
 			throw new Exception("No se puede agregar tarea portque esta finalizada/cancelada")
   		if (estado != Estado.PENDIENTE && paso.obligatoriedad == NECESARIO)
   			throw new Exception("No se puede agregar tarea obligatoria cuando ya se comenzo")
-  		
-  		plan.add(subMeta)
+
+  		plan.add(paso)
   	}
 
   	protected void informarCambio() {
@@ -46,7 +46,7 @@ class Paso {
   				return estado != Estado.FINALIZADA;
 
   			case Estado.FINALIZADA:
-				return (estado == Estado.EN_EJECUCION) && (!plan.any { !it.esEstadoTerminal()}) 
+				return (estado == Estado.EN_EJECUCION) && (!plan.any { !it.esEstadoTerminal()})
 
   			case Estado.EN_EJECUCION:
 				return (estado == Estado.PENDIENTE) && (!plan.any { !it.esEstadoTerminal() && it.obligatoriedad == Obligatoriedad.NECESARIO})
