@@ -56,7 +56,6 @@
 							</tr>
 							<tr>
 								<td>Obligacion:</td>
-
 								<td>
                   <g:select name="TipoObligacion" from="${organizadordemetas.Obligatoriedad?.values()}"/>
 								</td>

@@ -29,7 +29,7 @@ class ObjetivoController {
             return
         }
 
-        objetivo.inicializar(params.nombre, params.descripcion)
+        objetivo.inicializar(params.nombre, params.descripcion, Obligatoriedad.NECESARIO)
 
         if (objetivo.hasErrors()) {
             transactionStatus.setRollbackOnly()
@@ -99,7 +99,7 @@ class ObjetivoController {
         }
     }
 
-	
+
     def estadoCancelar(int id) {
   		Objetivo objetivo = Objetivo.get(id)
 		objetivo.cancelar()
@@ -107,32 +107,26 @@ class ObjetivoController {
   	}
 
 	@Transactional
-	def agregarSubMeta(Objetivo objetivo) {
+  def agregarSubMeta(Objetivo objetivo) {
         if (objetivo == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
-		
-		SubMeta subMetaNueva;
+
+		Paso subMetaNueva;
 		switch(params.TipoSubMeta) {
-			case "Objetivo": subMetaNueva = new Objetivo(params.smNombre, params.smDescripcion); break;
-			case    "Tarea": subMetaNueva = new    Tarea(params.smNombre, params.smDescripcion); break;
+			case "Objetivo": subMetaNueva = new Objetivo(params.smNombre, params.smDescripcion, Obligatoriedad.convertirEnEnum(params.TipoObligacion)); break;
+			case    "Tarea": subMetaNueva = new    Tarea(params.smNombre, params.smDescripcion, Obligatoriedad.convertirEnEnum(params.TipoObligacion)); break;
 			default:
-				objetivo.errors.add "Tipo no valido"
-				respond objetivo.errors, view:'edit'
+				tarea.errors.add "Tipo no valido"
+				respond tarea.errors, view:'edit'
 				return
 		}
-		
-		switch(params.TipoObligacion) {
-			case "Obligatorio": objetivo.agregarSubMetaObligatoria(subMetaNueva); break;
-			case    "Opcional":    objetivo.agregarSubMetaOpcional(subMetaNueva); break;
-			default:
-				respond objetivo, view:'edit'
-				return
-		}
-		
-		objetivo.save flush:true
+    objetivo.agregarPaso(subMetaNueva)
+
+
+		objetivo.save flush:objetivo
 
         request.withFormat {
             form multipartForm {
@@ -142,7 +136,6 @@ class ObjetivoController {
             '*'{ respond objetivo, [status: OK] }
         }
 	}
-	
 
     protected void notFound() {
         request.withFormat {
