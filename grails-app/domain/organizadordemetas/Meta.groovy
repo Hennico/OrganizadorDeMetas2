@@ -8,7 +8,7 @@ class Meta {
   }
 
 	public void inicializar(String nombre, String descripcion){
-		objetivo.inicializar(nombre, descripcion)
+		objetivo.inicializar(nombre, descripcion, Obligatoriedad.NECESARIO)
   }
 
 

@@ -54,10 +54,7 @@
 							<tr>
 								<td>Obligacion:</td>
 								<td>
-									<select name="TipoObligacion" id="TipoObligacion">
-										<option value=   "Opcional">Opcional</option>
-										<option value="Obligatorio">Obligatorio</option>
-									</select>
+                  <g:select name="TipoObligacion" from="${organizadordemetas.Obligatoriedad?.values()}"/>
 								</td>
 							</tr>
 							<tr>
