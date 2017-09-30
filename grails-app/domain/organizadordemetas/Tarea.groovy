@@ -35,13 +35,12 @@ class Tarea extends SubMeta{
     this.descripcion = descripcion
   }
 
-
-
   public void cambiarEstado(Estado estado) {
-		if (this.validarCambiarEstado(estado)){
-			this.estado = estado
-			this.informChange()
-		}
+		if (!this.validarCambiarEstado(estado))
+			throw new CambioEstadoInvalido("El estado que se utilizo no es valido")
+		
+		this.estado = estado
+		this.informarCambioEstado()
 	}
 
   static constraints = {

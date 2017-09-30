@@ -41,18 +41,8 @@ class Objetivo extends SubMeta {
 		subMeta.agragarListener(this)
 	}
 
-	public void Notify(){
-		def operacionFinalizada
-		operacionFinalizada = true
-		for(SubMeta opcional : subMetasOpocionales) {
-			if (opcional.estado != Estado.FINALIZADA && opcional.estado != Estado.CANCELADA)
-			operacionFinalizada = false
-		}
-		for(SubMeta opcional : subMetasObligatorias) {
-			if (opcional.estado != Estado.FINALIZADA && opcional.estado != Estado.CANCELADA)
-			operacionFinalizada = false
-		}
-		if(operacionFinalizada == true)
+	public void informar(){
+		if(!(subMetasOpocionales.any { it -> !it.estaCompleta() } || subMetasObligatorias.any { it -> !it.estaCompleta() }))
 			estado = Estado.FINALIZADA
 	}
 	

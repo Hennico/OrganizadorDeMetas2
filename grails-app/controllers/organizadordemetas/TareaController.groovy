@@ -103,10 +103,10 @@ class TareaController {
         }
 
 		switch(params.NuevoEstado) {
-      case "PENDIENTE": tarea.cambiarEstado(Estado.PENDIENTE); break;
-      case "EN_EJECUCION": tarea.cambiarEstado(Estado.EN_EJECUCION); break;
-      case "CANCELADA": tarea.cambiarEstado(Estado.CANCELADA); break;
-      case "FINALIZADA": tarea.cambiarEstado(Estado.FINALIZADA); break;
+		  case "PENDIENTE": tarea.cambiarEstado(Estado.PENDIENTE); break;
+		  case "EN_EJECUCION": tarea.cambiarEstado(Estado.EN_EJECUCION); break;
+		  case "CANCELADA": tarea.cambiarEstado(Estado.CANCELADA); break;
+		  case "FINALIZADA": tarea.cambiarEstado(Estado.FINALIZADA); break;
 			default:
 				respond tarea, view:'edit'
 				return
