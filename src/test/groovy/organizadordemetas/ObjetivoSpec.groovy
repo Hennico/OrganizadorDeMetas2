@@ -14,23 +14,45 @@ class ObjetivoSpec extends Specification {
 
     def cleanup() {
     }
+	
+    void "terminar la unica tarea hija finaliza el objetivo" () {
+		Objetivo objetivo = new Objetivo ("1", "2", Obligatoriedad.NECESARIO)
+		Tarea tarea  = new Tarea("1","2", Obligatoriedad.NECESARIO)
+		objetivo.agregarPaso(tarea)
 
-    void "test something"() {
-        expect:"fix me"
-            true == true
-    }
-
-     void testPendienteFinalizada() {
-		objetivo = new Tarea("Text", "Text")
-		objetivo.estado = Estado.Pendiente
-		tarea2 = new Tarea("Text", "Text")
-		tarea2.estado = Estado.EnEjecucion
-		objetivo.agregarSubMeta(tarea2, true)
-		tarea2.CambiarEstado(Estado.Finalizado)
+		tarea.cambiarEstado(Estado.EN_EJECUCION)
+		tarea.cambiarEstado(Estado.FINALIZADA)
 		
-        objetivoestado == Estado.Finalizado
-    }  
-    
+		expect: "esta finalizado"
+			objetivo.estado == Estado.FINALIZADA
+    } 
+	
+	void "la validacion de pasos finalizados es valida" () {
+		Objetivo objetivo = new Objetivo ("1", "2", Obligatoriedad.NECESARIO)
+		Tarea tarea  = new Tarea("1","2", Obligatoriedad.NECESARIO)
+		objetivo.agregarPaso(tarea)
+		
+		tarea.cambiarEstado(Estado.EN_EJECUCION)
+		tarea.cambiarEstado(Estado.FINALIZADA)
+		
+		expect: "pasos finalizados"
+			!(objetivo.plan.any { it -> !it.estaCompleta() })
+	}
+	
+	void "agregar paso hace que el objetivo se subscriva al paso" () {
+		Objetivo objetivo = new Objetivo ("1", "2", Obligatoriedad.NECESARIO)
+		Tarea tarea  = new Tarea("1","2", Obligatoriedad.NECESARIO)
+		objetivo.agregarPaso(tarea)
+		
+		expect: "listeners de tarea aumentaron"
+			tarea.listeners[0] == objetivo
+	}
+	
+	void "no pasa"() {
+		expect: "anda basura"
+			true==true
+	}
+	/*
     void testPendienteFinalizadaConDosTareas() {
 		objetivo = new Tarea("Text", "Text")
 		objetivo.estado = Estado.Pendiente
@@ -71,5 +93,6 @@ class ObjetivoSpec extends Specification {
 		}
         assert 'No se puede agregar tarea obligatoria cuando ya se comenzo' == msg
 
-    } 
+    }
+	*/
 }

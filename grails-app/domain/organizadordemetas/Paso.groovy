@@ -9,30 +9,30 @@ class Paso {
 	Obligatoriedad obligatoriedad
 
   	public Paso (String nombre, String descripcion, Obligatoriedad obligatoriedad) {
-	  	plan = []
-  		listeners = []
-     		estado = Estado.PENDIENTE
+	  	this.plan = []
+  		this.listeners = []
+		this.estado = Estado.PENDIENTE
   		this.nombre = nombre
   		this.descripcion = descripcion
 		this.obligatoriedad = obligatoriedad
   	}
 
-  	public boolean esEstadoTerminal() {
-		return (estado == Estado.FINALIZADA) || (estado == Estado.CANCELADA)
+  	public boolean estaCompleta() {
+		return (estado == Estado.FINALIZADA || estado == Estado.CANCELADA)
   	}
 
   	public void agregarPaso (Paso paso) {
-  		if (this.esEstadoTerminal())
-			throw new Exception("No se puede agregar tarea portque esta finalizada/cancelada")
+  		if (this.estaCompleta())
+			throw new CambioEstadoInvalido("No se puede agregar tarea portque esta finalizada/cancelada")
   		if (estado != Estado.PENDIENTE && paso.obligatoriedad == NECESARIO)
-  			throw new Exception("No se puede agregar tarea obligatoria cuando ya se comenzo")
+  			throw new CambioEstadoInvalido("No se puede agregar tarea obligatoria cuando ya se comenzo")
 
   		plan.add(paso)
   	}
 
   	protected void informarCambio() {
   		for(Objetivo listener : listeners) {
-  			listener.notificar()
+  			listener.informar()
   		}
   	}
 
@@ -46,15 +46,15 @@ class Paso {
   				return estado != Estado.FINALIZADA;
 
   			case Estado.FINALIZADA:
-				return (estado == Estado.EN_EJECUCION) && (!plan.any { !it.esEstadoTerminal()})
+				return (estado == Estado.EN_EJECUCION) && (!plan.any { !it.estaCompleta()})
 
   			case Estado.EN_EJECUCION:
-				return (estado == Estado.PENDIENTE) && (!plan.any { !it.esEstadoTerminal() && it.obligatoriedad == Obligatoriedad.NECESARIO})
+				return (estado == Estado.PENDIENTE) && (!plan.any { !it.estaCompleta() && it.obligatoriedad == Obligatoriedad.NECESARIO})
 
   			case Estado.PENDIENTE:
   				return false
   		}
-  		throw new Exception("El estado que se utilizo no es valido")
+  		throw new CambioEstadoInvalido("El estado que se utilizo no es valido")
   	}
 
       static constraints = {

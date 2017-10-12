@@ -101,21 +101,7 @@ class TareaController {
             notFound()
             return
         }
-
-<<<<<<< HEAD
-		switch(params.NuevoEstado) {
-		  case "PENDIENTE": tarea.cambiarEstado(Estado.PENDIENTE); break;
-		  case "EN_EJECUCION": tarea.cambiarEstado(Estado.EN_EJECUCION); break;
-		  case "CANCELADA": tarea.cambiarEstado(Estado.CANCELADA); break;
-		  case "FINALIZADA": tarea.cambiarEstado(Estado.FINALIZADA); break;
-			default:
-				respond tarea, view:'edit'
-				return
-		}
-=======
-      tarea.cambiarEstado(Estado.convertirEnEnum(params.NuevoEstado))
-
->>>>>>> 97e177164d9ac25d5f86cd94cf02ac859e879128
+		tarea.cambiarEstado(Estado.convertirEnEnum(params.NuevoEstado))
 
 		tarea.save flush:true
 
